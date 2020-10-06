@@ -1,18 +1,42 @@
 <template>
-  <div>
-    <div class="club border-gray-400 border-solid border-2 p-2">
-      <div class="club-summary mb-2 cursor-pointer">
-        <p class="text-xl mb-3">
+  <div class="w-full mx-auto sm:max-w-xl">
+    <div
+      class="club p-4 leading-7"
+      :style="{
+        backgroundColor: club.colorPrimary,
+        color: club.colorSecondary,
+      }"
+    >
+      <!-- <img src="../assets/images/down-chevron.svg" alt="expand icon" class="h-8 absolute bottom-0 right-0 fill-current" /> -->
+      <div class="club-summary mb-2 cursor-pointer relative" @click="club.expanded = !club.expanded">
+        <i :class="club.expanded ? 'fas fa-chevron-up' : 'fas fa-chevron-down'" class=" absolute right-0 bottom-0"></i>
+        <!-- <svg
+          id="Capa_1"
+          enable-background="new 0 0 551.13 551.13"
+          viewBox="0 0 551.13 551.13"
+          width="25"
+          xmlns="http://www.w3.org/2000/svg"
+          class="absolute fill-current bottom-0 right-0 divide-opacity-75"
+        >
+          <path d="m275.565 361.679-223.897-223.896h-51.668l275.565 275.565 275.565-275.565h-51.668z" />
+        </svg> -->
+        <p class="text-3xl mb-3 font-serif">
           <img :src="require(`../assets/images/clubs/${logo}`)" :alt="club.name + ' crest'" class="h-10 w-10 mr-4 inline" />{{ club.name }}
         </p>
-        <p class="text-base">
-          Since Last Trophy: <span class="font-bold"> {{ lastTrophy.length ? lastTrophy[0] : "None Selected!" }} </span>
+        <p class=" text-lg">
+          Since Last Trophy:
+          <span class="font-bold">
+            {{ lastTrophy.length ? lastTrophy[0] : "None Selected!" }}
+          </span>
         </p>
-        <p class=" italic">{{ lastTrophy.length ? lastTrophy[1] + ":" : "" }} {{ lastTrophy.length ? lastTrophy[2] : "" }}</p>
+        <p class=" italic">
+          {{ lastTrophy.length ? lastTrophy[1] + ":" : "" }}
+          {{ lastTrophy.length ? lastTrophy[2] : "" }}
+        </p>
       </div>
-      <div class="club-detailed">
-        <hr class=" mb-2" />
-        <div class="since-trophy" v-for="(won, trophy) in filter" :key="trophy">
+      <div class=" h-px w-11/12 mx-auto my-4 opacity-75" :style="{ backgroundColor: club.colorSecondary }" v-if="club.expanded"></div>
+      <div class="club-detailed" v-show="club.expanded">
+        <div class="since-trophy text-lg" v-for="(won, trophy) in filter" :key="trophy">
           <p v-if="won">{{ trophy }}: {{ formatTime(timeSince(club.trophies[trophy])) }}</p>
         </div>
       </div>
@@ -41,8 +65,12 @@ export default {
       let days = Math.floor((time - years * 31536000000) / (1000 * 60 * 60 * 24));
 
       // Output the result
-      if (!years) return `${days} days`;
-      return `${years} years and ${days} days`;
+      if (!years) {
+        return `${days} days`;
+      } else if (years === 1) {
+        return `${years} year, ${days} days`;
+      }
+      return `${years} years, ${days} days`;
     },
   },
   computed: {
