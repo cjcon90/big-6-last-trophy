@@ -1,7 +1,13 @@
 <template>
   <div id="app">
     <div class=" flex flex-wrap justify-center">
-      <button v-for="(value, trophy) in filter" :key="trophy" class=" bg-green-500 m-2 p-2" @click="filterTrophy(trophy)">
+      <button
+        v-for="(value, trophy) in filter"
+        :key="trophy"
+        class=" bg-green-500 m-2 p-2"
+        :class="value ? 'opacity-100' : 'opacity-50'"
+        @click="filterTrophy(trophy)"
+      >
         {{ trophy }}
       </button>
     </div>
