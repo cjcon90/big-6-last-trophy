@@ -11,7 +11,7 @@
         <button
           v-for="(value, trophy) in filter"
           :key="trophy"
-          class=" bg-green-700 py-2 px-4 text-sm sm:text-md md:text-lg text-gray-100 border-green-600 border-2 shadow-md focus:outline-none hover:bg-green-600 rounded-md"
+          class=" bg-green-700 py-2 px-4 text-sm sm:text-md md:text-lg text-gray-100 border-green-600 border-2 shadow-md focus:outline-none hover:bg-green-600 active:bg-green-700 rounded-md"
           :class="value ? 'opacity-100 font-bold' : 'opacity-50 shadow-xs'"
           @click="filterTrophy(trophy)"
         >
