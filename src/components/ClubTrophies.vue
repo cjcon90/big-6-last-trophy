@@ -1,7 +1,7 @@
 <template>
   <div class="w-full mx-auto sm:max-w-xl">
     <div
-      class="club p-4 leading-7"
+      class="club p-4 leading-7 sm:rounded-md sm:shadow-md"
       :style="{
         backgroundColor: club.colorPrimary,
         color: club.colorSecondary,
